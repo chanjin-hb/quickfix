@@ -1,0 +1,6 @@
+# Shell scripts must keep LF line endings so they run on Linux/WSL/macOS,
+# even when checked out on Windows (where core.autocrlf would otherwise
+# rewrite them to CRLF and break the #!/bin/sh shebang).
+*.sh text eol=lf
+demo/run.sh text eol=lf
+demo/build.sh text eol=lf
