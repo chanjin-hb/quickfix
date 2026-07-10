@@ -9,6 +9,12 @@ target_include_directories(ordermatch PRIVATE ${PROJECT_SOURCE_DIR}/include ${PR
 
 target_link_libraries(ordermatch ${PROJECT_NAME})
 
+# Generated FIX message headers are copied into include/quickfix by
+# QUICKFIX_HEADERS_COPY; without this dependency a parallel build can compile
+# the example before the copy finishes (notably on slow filesystems such as
+# WSL's /mnt/c), failing with "fixXX/MessageCracker.h: No such file".
+add_dependencies(ordermatch QUICKFIX_HEADERS_COPY)
+
 if (NOT WIN32)
 ADD_CUSTOM_TARGET(ordermatch_target ALL
                   COMMAND ${CMAKE_COMMAND} -E create_symlink $<TARGET_FILE:ordermatch> ${PROJECT_SOURCE_DIR}/bin/ordermatch)

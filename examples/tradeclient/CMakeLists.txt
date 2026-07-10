@@ -9,6 +9,12 @@ target_include_directories(tradeclient PRIVATE ${PROJECT_SOURCE_DIR}/include ${P
 
 target_link_libraries(tradeclient ${PROJECT_NAME})
 
+# Generated FIX message headers are copied into include/quickfix by
+# QUICKFIX_HEADERS_COPY; without this dependency a parallel build can compile
+# the example before the copy finishes (notably on slow filesystems such as
+# WSL's /mnt/c), failing with "fixXX/MessageCracker.h: No such file".
+add_dependencies(tradeclient QUICKFIX_HEADERS_COPY)
+
 if (NOT WIN32)
 ADD_CUSTOM_TARGET(tradeclient_target ALL
                   COMMAND ${CMAKE_COMMAND} -E create_symlink $<TARGET_FILE:tradeclient> ${PROJECT_SOURCE_DIR}/bin/tradeclient)
