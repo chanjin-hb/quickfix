@@ -1,0 +1,6 @@
+# Runtime artifacts produced by run.sh
+store/
+log/
+*.out
+*.stdout
+*.pid
