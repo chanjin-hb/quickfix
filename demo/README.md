@@ -12,9 +12,23 @@ sends a limit order and receives an execution report (fill) from a server.
 - `run.sh` — builds nothing; it launches the already-built example binaries,
   sends one limit order, and prints the messages that were exchanged.
 
-## Prerequisites
+## Quick start
 
-Build the library and examples first (from the repo root):
+Build everything and run the demo in one shot:
+
+```bash
+./demo/build.sh --run
+```
+
+## Scripts
+
+- `build.sh` — configures and builds the library + example binaries.
+  - `--ssl` configure with `-DHAVE_SSL=ON`
+  - `--run` run `run.sh` after a successful build
+- `run.sh` — launches the binaries, sends one limit order, and prints the
+  messages exchanged. Requires a prior build.
+
+Manual build (equivalent to `build.sh`):
 
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
@@ -25,7 +39,7 @@ This produces `lib/executor`, `lib/tradeclient`, and `lib/libquickfix.so`.
 
 ## Run
 
-From the repo root:
+From the repo root, after building:
 
 ```bash
 ./demo/run.sh
